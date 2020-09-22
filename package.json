@@ -1,7 +1,7 @@
 {
   "name": "algolearn",
   "version": "1.0.0",
-  "description": "training repository about Data Structures and Algorithms",
+  "description": "Training repository about Data Structures and Algorithms",
   "main": "index.js",
   "scripts": {
     "dev": "webpack --mode development ./src/index.js --watch",
