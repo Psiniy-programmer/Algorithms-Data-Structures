@@ -1,6 +1,6 @@
 let graph = {};
-graph["me"] = ["alice","bob","cler"];
-graph["bob"] = ["peggi","arti"];
+graph["me"] = ["alice", "bob", "cler"];
+graph["bob"] = ["peggi", "arti"];
 graph["alice"] = ["peggi"];
 graph["cler"] = ["anton", "johny"];
 
@@ -12,8 +12,8 @@ const deepSearching = obj => {
     let queue = Object.keys(obj);
     let completedElems = [];
     let curElem;
-    
-    while(queue.length > 0) {
+
+    while (queue.length > 0) {
         curElem = queue.shift();
 
         if (!completedElems.includes(curElem)) {

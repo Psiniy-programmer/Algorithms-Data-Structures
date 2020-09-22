@@ -1,3 +1,5 @@
+import List from './List.js'
+
 class Node {
     /**
      * Create new ones Node
@@ -10,14 +12,12 @@ class Node {
     }
 }
 
-class LinkedList {
+export default class LinkedList extends List {
     /**
      * Create new empty List 
      */
     constructor() {
-        this.head = null;
-        this.tail = null;
-        this.size = 0;
+        super();
     }
     /**
      * Insert new node at head
@@ -55,24 +55,22 @@ class LinkedList {
         if (index === 0) return this.insertFirst(value);
 
         let cur = this.head;
-        let i = 0;
         let temp;
 
-        while (cur) {
+        for (let i = 0; i < this.size; i++) {
             if (i + 1 === index) {
                 temp = cur.next;
                 cur.next = new Node(value, temp);
                 break;
             }
             cur = cur.next;
-            i++;
         }
         this.size++;
     }
     /**
      * Removing elemet at index from linked list
      * @param {number} index - the index by which you want to delete the node
-     * @returns {Node} removed node
+     * @returns {Node.value} removed node
      */
     removeAtIndex(index) {
         if (index < 0 || index > this.size) throw Error("Index out of range Linked List");
@@ -90,6 +88,7 @@ class LinkedList {
         }
         prevNode.next = cur.next;
         this.size--;
+        if (index === this.size) this.tail = prevNode;
         return cur.value;
     }
     /**
@@ -98,64 +97,25 @@ class LinkedList {
     showList() {
         let cur = this.head;
         for (let i = 0; i < this.size; i++) {
-            console.log(`[${i}] = ${cur.value}`);
+            console.log(`[${i}] : ${cur.value}`);
             cur = cur.next;
         }
     }
     /**
-     * Get the value of the tail of the list
-     * @returns {number} - Linked list tail value
+     * Reverse List nodes
+     * From Head->Tail to Tail->head
      */
-    getTail() {
-        console.log(this.tail.value);
-        return this.tail.value;
-    }
-    /**
-     * Get the value of the head of the list
-     * @returns {number} - Linked list head value
-     */
-    getHead() {
-        console.log(this.head.value);
-        return this.head.value;
-    }
-    /**
-     * Get node value by index in linked list
-     * @param {number} index - index by which the cell will be found
-     * @returns {number} - Node value
-     */
-    getAtIndex(index) {
+    reverse() {
         let cur = this.head;
-
-        for (let i = 0; i < this.size; i++) {
-            if (i === index) {
-                console.log(cur.value);
-                return cur.value;
-            }
-            cur = cur.next;
+        let prev = null;
+        let saver;
+        this.tail = cur;
+        while (cur) {
+            saver = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = saver;
         }
-        throw Error("Node not found in linked list");
-    }
-    /**
-     * Delete all nodes of linked list
-     */
-    clearList() {
-        this.size = 0;
-        this.head = null;
-        this.tail = null;
+        this.head = prev;
     }
 }
-
-const List = new LinkedList();
-List.insertFirst(10);
-List.insertFirst(20);
-List.insertLast(100);
-List.insertFirst(999);
-// List.getTail();
-List.insertAtIndex(3, 5);
-// List.insertAtIndex(7,99);
-List.showList();
-console.log("KEK")
-console.log("node : ", List.removeAtIndex(2));
-List.removeAtIndex(2);
-List.showList();
-List.clearList();
