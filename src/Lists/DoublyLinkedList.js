@@ -110,6 +110,18 @@ export default class DoublyLinkedList extends List {
      * From Head->Tail to Tail->head
      */
     reverse() {
-
+        let cur = this.head;
+        let prev, next = null;
+        let saver;
+        this.tail = cur;
+        while (cur) {
+            saver = cur.next;
+            cur.next = prev;
+            cur.prev = next;
+            prev = cur;
+            next = cur.next;
+            cur = saver;
+        }
+        this.head = prev;
     }
 }

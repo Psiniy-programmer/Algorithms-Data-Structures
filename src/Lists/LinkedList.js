@@ -111,10 +111,10 @@ export default class LinkedList extends List {
         let saver;
         this.tail = cur;
         while (cur) {
-            saver = cur.next;
-            cur.next = prev;
-            prev = cur;
-            cur = saver;
+            saver = cur.next; // save next node
+            cur.next = prev; // change link cur.next to prev link
+            prev = cur; // save cur node for next step
+            cur = saver; // change cur node on saved node
         }
         this.head = prev;
     }
