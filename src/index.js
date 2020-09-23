@@ -1,17 +1,27 @@
 import LinkedList from './Lists/LinkedList';
 import DoublyLinkedList from './Lists/DoublyLinkedList';
+import Queue from './Queue/Queue';
 
-const secList = new DoublyLinkedList();
-secList.insertFirst(99);
-secList.insertLast(0);
-secList.insertAtIndex(1, 50);
-secList.insertFirst(22);
-secList.showListFromHead();
-secList.reverse();
-console.log('reverse')
-secList.showListFromHead();
-secList.getHead();
-secList.getTail();
+const queue = new Queue();
+queue.insert(2);
+queue.insert(3);
+queue.show();
+console.log(queue.removeFront())
+queue.show();
+queue.clear();
+queue.removeFront();
+queue.show();
+// const secList = new DoublyLinkedList();
+// secList.insertFirst(99);
+// secList.insertLast(0);
+// secList.insertAtIndex(1, 50);
+// secList.insertFirst(22);
+// secList.showListFromHead();
+// secList.reverse();
+// console.log('reverse')
+// secList.showListFromHead();
+// secList.getHead();
+// secList.getTail();
 
 // const List = new LinkedList();
 // List.insertFirst(1);

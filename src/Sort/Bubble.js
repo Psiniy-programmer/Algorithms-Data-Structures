@@ -10,7 +10,7 @@ let testArr = [5, 2, 3, 1, 10, -2, 1, 5, 7]
  * @param {Array} arr - The array on which the sorting will be carried out
  * @returns {Array} - Sorted array
  */
-const bubbleSort = arr => {
+export const bubbleSort = arr => {
     let length = testArr.length - 1;
     let isSwapped = false;
     let tempA;

@@ -10,7 +10,7 @@ let testArr = [5, 2, 3, 1, 10, -2]
  * @param {Array} arr - The array on which the sorting will be carried out
  * @returns {Array} - Sorted array
  */
-const selectionSort = arr => {
+export const selectionSort = arr => {
     let passesCount = 0;
     let temp, swap, prevIndex, minItem;
 

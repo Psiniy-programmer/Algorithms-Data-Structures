@@ -8,6 +8,19 @@ export default class List {
         this.size = 0;
     }
     /**
+     * Checking whether the list is empty
+     * @return {boolean}
+     */
+    isEmpty() {
+        return !this.size ? true : false;
+    }
+    /**
+     * @return {number} - Size of LinkedList
+     */
+    getSize() {
+        return this.size;
+    }
+    /**
      * Delete all nodes of linked list
      */
     clearList() {
