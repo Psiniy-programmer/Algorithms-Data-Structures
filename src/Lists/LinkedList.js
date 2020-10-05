@@ -102,6 +102,19 @@ export default class LinkedList extends List {
         }
     }
     /**
+     * Get node value by index in linked list
+     * @param {number} index - index by which the cell will be found
+     * @returns {number} - Node value
+     */
+    getAtIndex(index) {
+        if (index > this.size) throw new Error("Index out of range list");
+        let cur = this.head;
+        for (let i = 0; i < index; i++)
+            cur = cur.next;
+        console.log(`[${index}] :`, cur.value);
+        return cur.value;
+    }
+    /**
      * Reverse List nodes
      * From Head->Tail to Tail->head
      */

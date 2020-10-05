@@ -106,6 +106,27 @@ export default class DoublyLinkedList extends List {
         }
     }
     /**
+     * Get node value by index in doublyLinked list
+     * @param {number} index - index by which the cell will be found
+     * @returns {number} - Node value
+     */
+    getAtIndex(index) {
+        if (index > this.size) throw new Error("Index out of range list");
+
+        let cur;
+        if (index < this.size / 2) {
+            cur = this.head;
+            for (let i = 0; i < index; i++)
+                cur = cur.next;
+        } else {
+            cur = this.tail;
+            for (let i = this.size; i > index; i--)
+                cur = cur.prev;
+        }
+        console.log(`[${index}] :`, cur.value);
+        return cur.value;
+    }
+    /**
      * Reverse DoublyLinkedList nodes
      * From Head->Tail to Tail->head
      */

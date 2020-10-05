@@ -44,21 +44,4 @@ export default class List {
         console.log(`[head] :`, this.head.value);
         return this.head.value;
     }
-    /**
-     * Get node value by index in linked list
-     * @param {number} index - index by which the cell will be found
-     * @returns {number} - Node value
-     */
-    getAtIndex(index) {
-        let cur = this.head;
-
-        for (let i = 0; i < this.size; i++) {
-            if (i === index) {
-                console.log(`[${index}] :`, cur.value);
-                return cur.value;
-            }
-            cur = cur.next;
-        }
-        throw Error("Node not found in linked list");
-    }
 }
