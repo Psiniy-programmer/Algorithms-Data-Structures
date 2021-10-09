@@ -1,16 +1,16 @@
 /**
  * Нода списка
  */
-class ListNode {
-  val: any;
-  next: null | ListNode;
+class LinkedListNode {
+  val: number;
+  next: null | LinkedListNode;
 
   /**
    * Создание новой ноды
    * @param _val - значение ноды
    * @param _next - ссылка на след. ноду
    */
-  constructor(_val: any, _next?: null | ListNode) {
+  constructor(_val: number, _next?: null | LinkedListNode) {
     this.val = _val;
     this.next = _next ? _next : null;
   }
@@ -19,13 +19,13 @@ class ListNode {
 /**
  * Linked List
  */
-class TsList {
+class MyLinkedList {
   private size: number;
-  private head: null | ListNode;
+  private head: null | LinkedListNode;
 
   constructor() {
     this.size = 0;
-    head: null;
+    this.head = null;
   }
 
   /**
@@ -33,15 +33,15 @@ class TsList {
    * @param _val value for new Node
    * @returns
    */
-  addInTail(_val: any): void {
-    const newNode: ListNode = new ListNode(_val);
+  addAtTail(_val: number): void {
+    const newNode: LinkedListNode = new LinkedListNode(_val);
 
     if (this.size === 0) {
       this.head = newNode;
       this.size++;
       return;
     }
-    let cur: ListNode = this.head;
+    let cur: LinkedListNode = this.head;
 
     while (cur.next) {
       cur = cur.next;
@@ -49,6 +49,67 @@ class TsList {
 
     cur.next = newNode;
     this.size++;
+  }
+
+  /**
+   * Add value in List from head
+   * @param _val value for new Node
+   * @returns
+   */
+  addAtHead(_val: number): void {
+    const newNode: LinkedListNode = new LinkedListNode(_val);
+
+    if (this.size === 0) {
+      this.head = newNode;
+      this.size++;
+      return;
+    }
+
+    const savedNode: LinkedListNode = this.head;
+    this.head = newNode;
+    this.head.next = savedNode;
+    this.size++;
+  }
+
+  addAtIndex(index: number, val: number): void {
+    if (index < 0 || index >= this.size + 1) {
+      return;
+    }
+    const newNode: LinkedListNode = new LinkedListNode(val);
+
+    if (this.size === 0) {
+      this.head = newNode;
+      this.size++;
+      return;
+    }
+
+    if (index === 0 && this.size === 1) {
+      newNode.next = this.head;
+      this.head = newNode;
+      return;
+    }
+
+    let cur: LinkedListNode = this.head;
+    let prev: LinkedListNode = cur;
+    let curIndex: number = 0;
+
+    while (curIndex !== index && cur) {
+      prev = cur;
+      cur = cur.next;
+      curIndex++;
+
+      if (curIndex === index) {
+        break
+      }
+    }
+
+    if (curIndex === index) {
+      prev.next = newNode;
+      newNode.next = cur;
+      this.size++;
+    } else {
+      return;
+    }
   }
 
   /**
@@ -61,7 +122,7 @@ class TsList {
       return;
     }
 
-    let cur: ListNode = this.head;
+    let cur: LinkedListNode = this.head;
 
     while (cur) {
       console.log(cur?.val);
@@ -72,37 +133,22 @@ class TsList {
   }
 
   /**
-   * Add value in List from head
-   * @param _val value for new Node
-   * @returns
+   * Find and remove value from List
+   * @param _val value of node for remove
+   * @returns {void}
    */
-  addInHead(_val: any) {
-    const newNode: ListNode = new ListNode(_val);
-
-    if (this.size === 0) {
-      this.head = newNode;
-      this.size++;
+  removeAtVal(_val: number): void {
+    if (!_val || this.size === 0) {
       return;
     }
 
-    const savedNode: ListNode = this.head;
-    this.head = newNode;
-    this.head.next = savedNode;
-    this.size++;
-  }
-
-  /**
-   * Find and remove value from List
-   * @param _val value of node for remove
-   * @returns {null | number} - returns -1 if node not found
-   */
-  remove(_val: any) {
-    if (!_val) {
-      return -1;
+    if (this.head.val === _val) {
+      this.head = this.head.next;
+      return;
     }
     let flag: boolean = false;
-    let cur: ListNode = this.head;
-    let prev: ListNode = cur;
+    let cur: LinkedListNode = this.head;
+    let prev: LinkedListNode = cur;
 
     while (cur.val !== _val && cur) {
       prev = cur;
@@ -117,7 +163,45 @@ class TsList {
       prev.next = cur.next;
       this.size--;
     } else {
-      return -1;
+      return;
+    }
+  }
+
+  deleteAtIndex(index: number): void {
+    if (this.size === 0 || index < 0 || index >= this.size) {
+      return;
+    }
+
+    if (index === 0) {
+      this.head = this.head.next;
+      return;
+    }
+
+    if (index === 0 && this.size === 1) {
+      this.head = null;
+      this.size--;
+      return;
+    }
+
+    let cur: LinkedListNode = this.head;
+    let prev: LinkedListNode = cur;
+    let curIndex: number = 0;
+
+    while (index !== curIndex && cur) {
+      prev = cur;
+      cur = cur.next;
+      curIndex++;
+
+      if (index === curIndex) {
+        break;
+      }
+    }
+
+    if (index === curIndex) {
+      prev.next = cur.next;
+      this.size--;
+    } else {
+      return;
     }
   }
 
@@ -126,12 +210,12 @@ class TsList {
    * @param _val Node for check
    * @returns {boolean}
    */
-  has(_val: any) {
+  has(_val: number): boolean {
     if (!_val || this.size === 0) {
       return false;
     }
     let cur = this.head;
-    
+
     while (cur) {
       if (cur.val === _val) {
         return true;
@@ -141,12 +225,36 @@ class TsList {
 
     return false;
   }
+
+  /**
+   * get value from node if we can found it
+   * @param index node index
+   * @returns {number} val of founded node
+   */
+  get(index: number): number {
+    if (this.size === 0) {
+      return -1;
+    }
+    let cur = this.head;
+    let curIndex: number = 0;
+
+    while (cur) {
+      if (curIndex === index) {
+        return cur.val;
+      }
+      curIndex++;
+      cur = cur.next;
+    }
+
+    return -1;
+  }
 }
 
-const tsList: TsList = new TsList();
-tsList.addInTail(2);
-tsList.addInTail(1);
-tsList.addInHead(3);
-tsList.remove(2);
-tsList.has(2);
-tsList.has(1);
+// ["MyLinkedList","addAtHead","addAtIndex","get"]
+// [[],[2],[0,1],[1]]
+
+const myLinkedList = new MyLinkedList();
+myLinkedList.addAtHead(2);
+myLinkedList.addAtIndex(0,1);
+myLinkedList.print();
+console.log(myLinkedList.get(1));
